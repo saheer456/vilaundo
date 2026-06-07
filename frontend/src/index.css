@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* preserve sensible defaults for typography and background to match previous styling */
+@layer base {
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-white text-gray-900 font-sans;
+  }
+}
+
 /* custom components using Tailwind's @apply */
 @layer components {
   .container {
