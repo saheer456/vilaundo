@@ -2,22 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* preserve sensible defaults for typography and background to match previous styling */
 @layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Malayalam:wght@400;500;600;700;800&display=swap');
+
   html, body, #root {
     height: 100%;
+    margin: 0;
+    padding: 0;
   }
+
   body {
-    @apply bg-white text-gray-900 font-sans;
+    @apply bg-slate-50 text-slate-800 transition-colors duration-300;
+    font-family: 'Inter', 'Noto Sans Malayalam', sans-serif;
+  }
+
+  body.dark {
+    @apply bg-slate-950 text-slate-100;
   }
 }
 
-/* custom components using Tailwind's @apply */
-@layer components {
-  .container {
-    @apply max-w-2xl mx-auto p-4;
+/* Custom UI Utilities */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
-  .card {
-    @apply bg-white border border-gray-200 rounded-lg p-4 shadow-sm;
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
+
+  /* Glassmorphism elements */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .glass-card {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .glass-header {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Transitions and animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseBorder {
+  0%, 100% { border-color: rgba(16, 185, 129, 0.2); }
+  50% { border-color: rgba(16, 185, 129, 0.5); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-border {
+  animation: pulseBorder 2s infinite ease-in-out;
 }

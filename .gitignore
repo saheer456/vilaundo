@@ -16,3 +16,6 @@ coverage/
 .env.local
 npm-debug.log
 yarn-error.log
+*.db
+.pytest_cache/
+
