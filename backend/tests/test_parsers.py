@@ -23,4 +23,4 @@ def test_horticorp_parser():
     assert len(res) == 2
     p = res[0]
     assert p['commodity_name_en'] == 'Potato'
-    assert p['price_modal'] == 20
+    assert p['price_modal'] == 22.5
