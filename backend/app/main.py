@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from datetime import date, timedelta
 import os
 from typing import Optional
@@ -10,6 +11,19 @@ from . import api as api_module
 from .db import get_session
 
 app = FastAPI()
+
+# Allow CORS from local frontend preview/dev servers so the static preview can call the API
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 async def startup_event():
