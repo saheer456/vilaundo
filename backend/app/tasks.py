@@ -90,8 +90,13 @@ async def sync_all_prices():
 
 
 def start_scheduler():
-    """Start APScheduler to run sync_all_prices daily at 07:30 IST."""
+    """Start APScheduler to run sync_all_prices daily at 07:30 IST.
+    The scheduler can be disabled by setting DISABLE_SCHEDULER=1 in the environment (useful for tests).
+    """
     global scheduler
+    if os.getenv('DISABLE_SCHEDULER') == '1':
+        logging.info('Scheduler disabled via DISABLE_SCHEDULER env var')
+        return
     if scheduler is not None:
         return
     scheduler = AsyncIOScheduler()

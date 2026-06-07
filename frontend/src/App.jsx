@@ -3,14 +3,17 @@ import PriceList from "./components/PriceList"
 
 export default function App(){
   const [items, setItems] = useState([])
+  const base = import.meta.env.VITE_API_URL || ''
   useEffect(()=>{
-    fetch('/api/prices/today').then(r=>r.json()).then(d=>setItems(d.prices || []))
+    fetch(`${base}/api/prices/today`).then(r=>r.json()).then(d=>setItems(d.prices || []))
   },[])
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="container">
       <h1 className="text-2xl font-bold mb-4">VilaUndo</h1>
-      <PriceList items={items} />
+      <div className="card">
+        <PriceList items={items} />
+      </div>
     </div>
   )
 }
